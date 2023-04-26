@@ -10,8 +10,8 @@ import os
 
 scale = [2, 4, 8]
 
-img_dir = r"/root/autodl-tmp/DL/DATASET/DIV2K_valid_HR"
-save_dir = r"/root/autodl-tmp/DL/SCALE/DIV2K_valid_HR"
+img_dir = r"dataset/TheDuobaoTowerStele"
+save_dir = r"SCALE/TheDuobaoTowerStele"
 
 cubic_save_dir = os.path.join(save_dir, "cubic")
 nearest_save_dir = os.path.join(save_dir, "nearest")
@@ -96,11 +96,14 @@ if __name__ == "__main__":
         os.makedirs(edi_save_dir)
 
     # img_files = os.listdir(img_dir)
-    img_files = glob.glob(r"{}/*.png".format(img_dir))
+    types = ('*.png', '*.jpg', '*.bmp')
+    img_files = []
+    for type in types:
+        img_files.extend(glob.glob(r"{}/{}".format(img_dir, type)))
 
     worker_pool = multiprocessing.Pool(12)
     for img_file in img_files:
-        img_file = os.path.join(img_dir, img_file)
+        # img_file = os.path.join(img_dir, img_file)
         worker_pool.apply_async(worker, args=(img_file,))
         # worker(img_file)
     worker_pool.close()

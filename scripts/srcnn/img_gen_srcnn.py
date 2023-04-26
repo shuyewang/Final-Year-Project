@@ -7,10 +7,10 @@ import torchvision.transforms as transforms
 from PIL import Image
 
 scale = [2, 4, 8]
-cuda = False
+cuda = True
 
-input_imgs = glob.glob(r"/root/autodl-tmp/DL/DATASET/TheDuobaoTowerStele/*.jpg")
-output_dir = r"/root/autodl-tmp/DL/SCALE_AI/TheDuobaoTowerStele"
+input_imgs = glob.glob(r"dataset/TheDuobaoTowerStele/*.jpg")
+output_dir = r"SCALE_AI/TheDuobaoTowerStele"
 
 srcnn_save_dir = os.path.join(output_dir, "srcnn")
 
@@ -48,8 +48,8 @@ if __name__ == '__main__':
 
     for s in scale:
         device = torch.device("cuda:0" if (torch.cuda.is_available() and cuda) else "cpu")
-        model_file = r'/root/autodl-tmp/DL/DLL/models/srcnn_x{}/model_199.pth'.format(s)
-        model = torch.load(model_file)
+        model_file = r'models/srcnn_x{}/model_199.pth'.format(s)
+        model = torch.load(model_file, map_location=lambda storage, loc: storage).to(device)
         if cuda:
             model = model.cuda()
         else:
@@ -57,7 +57,9 @@ if __name__ == '__main__':
         
         worker_pool = multiprocessing.Pool(14)
         for input_img in input_imgs:
-            worker_pool.apply_async(model_srcnn, args=(model, input_img, s))
-            # model_srcnn(model, input_img, s)
+            if cuda:            
+                model_srcnn(model, input_img, s)
+            else:
+                worker_pool.apply_async(model_srcnn, args=(model, input_img, s))
         worker_pool.close()
         worker_pool.join()

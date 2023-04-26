@@ -6,12 +6,12 @@ import numpy as np
 from torch.autograd import Variable
 import cv2
 
-input_imgs = glob.glob(r"/root/autodl-tmp/DL/DATASET/TESTIMG/*.jpg")
-output_dir = r"/root/autodl-tmp/DL/SCALE_AI/TESTIMG"
+input_imgs = glob.glob(r"dataset/TheDuobaoTowerStele/*.jpg")
+output_dir = r"SCALE_AI/TheDuobaoTowerStele"
 
 scale = [2, 4, 8]
 
-model_file = r'/root/autodl-tmp/DL/DLL/models/vdsr248/model_epoch_5.pth'
+model_file = r'models/vdsr248/model_epoch_5.pth'
 cuda = True
 gpus = 0
 

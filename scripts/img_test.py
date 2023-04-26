@@ -15,7 +15,6 @@ import algo.fsim as FSIM
 
 scale = [2, 4, 8]
 
-
 def worker(hr_img, lr_imgs_dir):
     FSIM_loss = FSIM.FSIMc()
     result = {"mse": {}, "psnr": {}, "ssim": {}, "fsim": {}}
@@ -53,21 +52,19 @@ if __name__ == "__main__":
     types = ('*.png', '*.jpg', '*.bmp')  # the tuple of file types
 
     input_imgs_dir_list = [
-        r"/root/autodl-tmp/DL/SCALE/DIV2K_valid_HR",
-        r"/root/autodl-tmp/DL/SCALE/Manga109",
-        r"/root/autodl-tmp/DL/SCALE/TESTIMG",
-        r"/root/autodl-tmp/DL/SCALE/TheDuobaoTowerStele",
-        r"/root/autodl-tmp/DL/SCALE_AI/DIV2K_valid_HR",
-        r"/root/autodl-tmp/DL/SCALE_AI/Manga109",
-        r"/root/autodl-tmp/DL/SCALE_AI/TESTIMG",
-        r"/root/autodl-tmp/DL/SCALE_AI/TheDuobaoTowerStele"
+        r"SCALE/DIV2K_valid_HR",
+        r"SCALE/Manga109",
+        r"SCALE/TheDuobaoTowerStele",
+        r"SCALE_AI/DIV2K_valid_HR",
+        r"SCALE_AI/Manga109",
+        r"SCALE_AI/TheDuobaoTowerStele"
     ]
 
     for input_imgs_dir in input_imgs_dir_list:
         dataset_dir = os.path.join(
-            r"/root/autodl-tmp/DL/DATASET", os.path.basename(input_imgs_dir))
+            r"dataset", os.path.basename(input_imgs_dir))
         result_dir = os.path.join(
-            r"/root/autodl-tmp/DL/RESULT", os.path.basename(input_imgs_dir))
+            r"RESULT", os.path.basename(input_imgs_dir))
 
         hr_imgs = []
         for files in types:
