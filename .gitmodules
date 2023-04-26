@@ -1,0 +1,6 @@
+[submodule "train/pytorch-vdsr"]
+	path = train/pytorch-vdsr
+	url = https://github.com/shuyewang/pytorch-vdsr.git
+[submodule "train/SRCNN"]
+	path = train/SRCNN
+	url = https://github.com/Mirwaisse/SRCNN.git
